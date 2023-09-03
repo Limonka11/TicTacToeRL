@@ -1,0 +1,19 @@
+q_model:
+  state_dim: 9
+  action_dim: 9
+  num_episodes: 2500
+  lr: 0.1
+  epsilon_initial: 1.0
+  epsilon_min: 0.01
+  epsilon_decay: 0.95
+  discount_factor: 0.97
+
+q_table_model:
+  state_dim: 19683
+  action_dim: 9
+  num_episodes: 100000
+  log_freq: 10000
+  lr: 0.3
+  epsilon: 0.2
+  epsilon_decay_freq: 10000
+  discount_factor: 0.9
