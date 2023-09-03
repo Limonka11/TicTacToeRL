@@ -1,7 +1,10 @@
 # TicTacToeRL
 
 This is a simple implementation of the Tic-Tac-Toe game in Python.
-The repo also contains Reinforcement Learning agents which use the Q-Learning algorithm.
+The repo also contains a Reinforcement Learning agent class that uses the Q-Learning algorithm.
+
+For some reason, saving and loading the Q-table does not work. If the agent isn't
+appropriately trained, please rerun the `tic_tac_toe.py` script.
 
 ## How to Run
 
