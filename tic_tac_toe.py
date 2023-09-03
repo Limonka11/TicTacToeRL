@@ -165,8 +165,8 @@ if __name__ == "__main__":
                     log_freq=config["q_table_model"]["log_freq"])
     game.start()
 
-    # Save Q-Table
-    #p2.save_q_table("rl_q_table.txt")
+    # Save tables
+    p2.save_tables()
 
     # Test agent vs random agent
     p1.epsilon=0

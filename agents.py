@@ -1,6 +1,6 @@
 import numpy as np
 import random
-import json
+import pickle
 import torch
 import torch.optim as optim
 import torch.nn.functional as F
@@ -166,15 +166,33 @@ class QLearningAgent:
             loss_percentage = (total_losses / total_games) * 100
             return win_percentage, draw_percentage, loss_percentage
         else:
-            return 0.0  # No games played, so win percentage is 0%
+            return 0.0, 0.0, 0.0  # No games played, so win percentage is 0%
 
-    def save_q_table(self, filename):
-        with open(filename, 'w') as fp:
-            fp.write(json.dumps(self.Q))
+    def save_tables(self):
+        with open("rl_q_table.pkl", 'wb') as file:
+            pickle.dump(self.Q, file)
+        
+        with open("rl_win_table.pkl", 'wb') as file:
+            pickle.dump(self.wins, file)
 
-    def load_q_table(self, filename):
-        with open(filename, 'r') as json_file:
-            self.Q = json.load(json_file)
+        with open("rl_draw_table.pkl", 'wb') as file:
+            pickle.dump(self.draws, file)
+
+        with open("rl_loss_table.pkl", 'wb') as file:
+            pickle.dump(self.losses, file)
+
+    def load_tables(self):
+        with open("rl_q_table.pkl", 'rb') as file:
+            self.Q = pickle.load(file)
+
+        with open("rl_win_table.pkl", 'rb') as file:
+            self.wins = pickle.load(file)
+
+        with open("rl_draw_table.pkl", 'rb') as file:
+            self.draws = pickle.load(file)
+        
+        with open("rl_loss_table.pkl", 'rb') as file:
+            self.losses = pickle.load(file)
 
 class HumanAgent:
     def __init__(self, turn):
