@@ -1,11 +1,11 @@
 import numpy as np
 import random
-import pickle
+import json
 import torch
 import torch.optim as optim
 import torch.nn.functional as F
 
-from TicTacToeRL.network import SimpleNN
+from network import SimpleNN
 
 class DeepQAgent:
     def __init__(self, state_dim, action_dim, epsilon_initial=1.0, epsilon_min=0.01, epsilon_decay=0.95, discount_factor=0.99, learning_rate=0.001):
@@ -167,14 +167,14 @@ class QLearningAgent:
             return 0.0  # No games played, so win percentage is 0%
 
     def save_q_table(self, filename):
-        with open(filename, 'wb') as file:
-            pickle.dump(self.Q, file)
+        with open(filename, 'w') as fp:
+            fp.write(json.dumps(self.Q))
 
     def load_q_table(self, filename):
-        with open(filename, 'rb') as file:
-            self.Q = pickle.load(file)
+        with open(filename, 'r') as json_file:
+            self.Q = json.load(json_file)
 
-class PlayerHuman:
+class HumanAgent:
     def __init__(self, turn):
         self.mark=turn
         self.last_state = None
@@ -204,7 +204,7 @@ class PlayerHuman:
     def get_win_percentage(self, state, action):
         pass
 
-class PlayerRandom:
+class RandomAgent:
     def __init__(self, mark):
         self.mark = mark
         

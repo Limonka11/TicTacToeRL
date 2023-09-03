@@ -2,7 +2,7 @@ import numpy as np
 import random
 import yaml
 
-from TicTacToeRL.agents import PlayerHuman, QLearningAgent, PlayerRandom
+from agents import HumanAgent, QLearningAgent, RandomAgent
 
 class TicTacToe:
     def __init__(self, board=None):
@@ -144,18 +144,19 @@ if __name__ == "__main__":
     with open("config.yaml", 'r') as yaml_file:
         config = yaml.safe_load(yaml_file)
 
-    p1=QLearningAgent(mark="X",
+    # Train agents vs themselves
+    p1 = QLearningAgent(mark="X",
                       lr=config["q_table_model"]["lr"],
                       epsilon=config["q_table_model"]["epsilon"],
                       epsilon_decay_freq=config["q_table_model"]["epsilon_decay_freq"],
                       discount_factor=config["q_table_model"]["discount_factor"])
-    p2=QLearningAgent(mark="O",
+    p2 = QLearningAgent(mark="O",
                       lr=config["q_table_model"]["lr"],
                       epsilon=config["q_table_model"]["epsilon"],
                       epsilon_decay_freq=config["q_table_model"]["epsilon_decay_freq"],
                       discount_factor=config["q_table_model"]["discount_factor"])
 
-    game=Coordinator(player_x=p1,
+    game = Coordinator(player_x=p1,
                     player_o=p2,
                     num_epi=config["q_table_model"]["num_episodes"],
                     print_board=False,
@@ -163,9 +164,14 @@ if __name__ == "__main__":
                     log_freq=config["q_table_model"]["log_freq"])
     game.start()
 
-    p1.e=0
-    p3=PlayerRandom("O")
-    game=Coordinator(player_x=p1,
+    # Save Q-Table
+    #p2.save_q_table("rl_q_table.txt")
+
+    # Test agent vs random agent
+    p1.epsilon=0
+    p3 = RandomAgent("O")
+
+    game = Coordinator(player_x=p1,
                     player_o=p3,
                     num_epi=100,
                     print_board=False,
@@ -173,8 +179,10 @@ if __name__ == "__main__":
                     log_freq=10)
     game.start()
 
-    p4=PlayerHuman("O")
-    game=Coordinator(player_x=p1,
+    # Test agent vs human
+    p4 = HumanAgent("O")
+
+    game = Coordinator(player_x=p1,
                     player_o=p4,
                     num_epi=10,
                     print_board=True,
