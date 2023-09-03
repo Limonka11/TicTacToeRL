@@ -103,7 +103,8 @@ class Coordinator:
 
                 if self.print_board:
                     self.env.print_board()
-                    print("{0} has {1}% win rate in this situation!".format(self.cur_player.mark, self.cur_player.get_win_percentage(self.cur_player.last_state, action)))
+                    win_rate, draw_rate, loss_rate = self.cur_player.get_performance(self.cur_player.last_state, action)
+                    print("{0} has {1}% win rate in this situation, {2}% draw rate in this situation! , {3}% loss rate in this situation".format(self.cur_player.mark, win_rate, draw_rate, loss_rate))
                
                 # Signal to both players that the game ends
                 if self.env.winner != None:

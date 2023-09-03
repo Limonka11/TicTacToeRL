@@ -150,7 +150,7 @@ class QLearningAgent:
             elif result == 'draw':
                 self.draws[(state_key, action_key)] = self.draws.get((state_key, action_key), 0) + 1
 
-    def get_win_percentage(self, state, action):
+    def get_performance(self, state, action):
         # Calculate win percentage for a state-action pair
         state_key = tuple(state.board)
         action_key = action
@@ -162,7 +162,9 @@ class QLearningAgent:
 
         if total_games > 0:
             win_percentage = (total_wins / total_games) * 100
-            return win_percentage
+            draw_percentage = (total_draws / total_games) * 100
+            loss_percentage = (total_losses / total_games) * 100
+            return win_percentage, draw_percentage, loss_percentage
         else:
             return 0.0  # No games played, so win percentage is 0%
 
@@ -201,8 +203,8 @@ class HumanAgent:
             env.winner != "D":
             print("Woah, I lost...")
         
-    def get_win_percentage(self, state, action):
-        pass
+    def get_performance(self, state, action):
+        return None, None, None
 
 class RandomAgent:
     def __init__(self, mark):
@@ -215,5 +217,5 @@ class RandomAgent:
     def learn_from_result(self, env):
         pass
 
-    def get_win_percentage(self, state, action):
-        pass
+    def get_performance(self, state, action):
+        return None, None, None
