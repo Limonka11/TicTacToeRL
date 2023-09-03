@@ -15,7 +15,12 @@ git clone https://github.com/Limonka11/TicTacToeRL.git
 ```bash
 cd .\TicTacToeRL
 ```
-3. Run the game by executing the following command:
+3. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+4. Run the game by executing the following command:
 ```bash
 python .\tic_tac_toe.py
 ```

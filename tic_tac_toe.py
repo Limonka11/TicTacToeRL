@@ -22,7 +22,6 @@ class TicTacToe:
 
         return moves
 
-    # Function to print the Tic-Tac-Toe board
     def print_board(self):
         print("-------------")
         for i in range(0, 9, 3):
@@ -118,7 +117,7 @@ class Coordinator:
                         if self.print_result:
                             print("Winner : ", self.cur_player.mark)
                     else:
-                        print("Invalid Move!") #TODO: can place in occupied cell
+                        print("Invalid Move!")
 
                     self.win_board[self.env.winner] += 1
                 else:
